@@ -1,0 +1,24 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+body{margin:0;background:#fff;font:14px/1.65 system-ui,-apple-system,"Segoe UI",sans-serif;color:#1f2023}
+.wrap{max-width:560px;margin:24px auto;padding:14px 16px;border-radius:16px;background:#eef3fe}
+</style></head><body>
+<div id="overlay"></div>
+<div class="wrap" id="msg"></div>
+<script src="../../node_modules/react/umd/react.development.js"></script>
+<script src="../../node_modules/react-dom/umd/react-dom.development.js"></script>
+<script>
+const slots = new Map();
+const ctx = { get(){return null}, on(){return ()=>{}}, effect(cb){ const d=cb(); return ()=>{ if(typeof d==='function') d(); } },
+  slots: { inject(n,cb){ return cb(); }, register(cfg, c){ slots.set(cfg.key || cfg.id, c); return ()=>{}; } } };
+window.__ModuleLoader__ = { load(m){ window.__p = m.factory((n)=> n==='react'?window.React:undefined); window.__p.apply(ctx); } };
+</script>
+<script src="../../client.js"></script>
+<script>
+const Text = slots.get('text');
+const text = '│ 第一行引用\n│ 第二行引用\n我的回复\n\n│ 另一组引用\n另一个回复\n\n最后一句手打的话';
+ReactDOM.createRoot(document.getElementById('overlay')).render(React.createElement(slots.get('quote-reply-overlay'), null));
+ReactDOM.createRoot(document.getElementById('msg')).render(
+  React.createElement('span', { style: { display: 'block', whiteSpace: 'pre-wrap' } },
+    React.createElement(Text, { raw: text, interactive: false })));
+</script>
+</body></html>

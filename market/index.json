@@ -1,0 +1,81 @@
+{
+  "_note": "Format 1 market index. Replace the placeholder commit after the first push, then host this file from the repository (raw URL) and add that URL as a market index source in DSH.",
+  "format": 1,
+  "title": {
+    "en": "dsh-quote-reply",
+    "zh": "dsh-quote-reply 引用回复"
+  },
+  "description": {
+    "en": "A one-plugin market index for the quote & reply queue.",
+    "zh": "只包含引用回复插件的市场索引。"
+  },
+  "metadata": {
+    "categories": {
+      "conversation": {
+        "title": { "en": "Conversation", "zh": "对话" }
+      },
+      "composer": {
+        "title": { "en": "Composer", "zh": "输入框" }
+      }
+    },
+    "labels": {
+      "quote": { "title": { "en": "Quote", "zh": "引用" } },
+      "reply": { "title": { "en": "Reply", "zh": "回复" } },
+      "selection": { "title": { "en": "Selection", "zh": "选区" } }
+    },
+    "sortKeys": {
+      "stars": {
+        "title": { "en": "Stars", "zh": "星标" },
+        "order": "desc"
+      }
+    }
+  },
+  "plugins": [
+    {
+      "name": "dsh-quote-reply",
+      "title": {
+        "en": "Quote & Reply Queue",
+        "zh": "引用回复队列"
+      },
+      "description": {
+        "en": "Select text in a conversation, answer it in a popover, stack the pairs as editable blocks above the composer, and send them as one message.",
+        "zh": "选中对话里的任意文字，在浮窗里写回复，问答变成输入框上方可编辑的方块，最后一次性发出。"
+      },
+      "icon": "../icon.svg",
+      "author": "dsh-quote-reply contributors",
+      "homepage": "https://github.com/gf691271/dsh-quote-reply",
+      "repository": {
+        "url": "https://github.com/gf691271/dsh-quote-reply"
+      },
+      "metadata": {
+        "category": "composer",
+        "keywords": [
+          "quote",
+          "reply",
+          "selection",
+          "annotation",
+          "composer",
+          "claude-code",
+          "引用",
+          "回复"
+        ],
+        "labels": ["quote", "reply", "selection"],
+        "sortKeys": { "stars": 0 }
+      },
+      "versions": [
+        {
+          "version": "1.0.0",
+          "publishTimestamp": 1793577600,
+          "source": {
+            "type": "git",
+            "url": "https://github.com/gf691271/dsh-quote-reply",
+            "commit": "000bab5199501f9ad4323ab2271c48c264a4eb35"
+          },
+          "engines": {
+            "dsh": ">=0.2.0"
+          }
+        }
+      ]
+    }
+  ]
+}

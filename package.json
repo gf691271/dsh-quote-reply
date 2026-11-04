@@ -1,0 +1,70 @@
+{
+  "name": "dsh-quote-reply",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Claude Code style quote & reply for DeepSeek Harness: select text, reply in a popover, stack editable blocks above the composer, send them together.",
+  "keywords": [
+    "dsh-plugin",
+    "deepseek-harness",
+    "deepseek",
+    "quote",
+    "reply",
+    "selection",
+    "annotation",
+    "composer",
+    "claude-code",
+    "引用回复",
+    "选中文字"
+  ],
+  "license": "MIT",
+  "author": "dsh-quote-reply contributors",
+  "homepage": "https://github.com/gf691271/dsh-quote-reply#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gf691271/dsh-quote-reply.git"
+  },
+  "bugs": {
+    "url": "https://github.com/gf691271/dsh-quote-reply/issues"
+  },
+  "exports": {
+    ".": "./index.js",
+    "./client": "./client.js",
+    "./locale/*.json": "./locale/*.json",
+    "./icon": "./icon.svg"
+  },
+  "files": [
+    "index.js",
+    "client.js",
+    "cordis.patch.yml",
+    "locale/*.json",
+    "icon.svg"
+  ],
+  "scripts": {
+    "check": "node --check client.js",
+    "lint": "eslint client.js test/quote-reply.test.mjs",
+    "test": "node test/quote-reply.test.mjs",
+    "test:browser": "playwright test",
+    "verify": "npm run check && npm run lint && npm test"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.64.1",
+    "@stryker-mutator/core": "^10.1.1",
+    "eslint": "^9.39.5",
+    "fast-check": "^4.10.2",
+    "jsdom": "^25.0.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "immediately": true,
+      "inject": [
+        "@deepseek-ai/dsh-client-ui-conversation"
+      ]
+    }
+  }
+}

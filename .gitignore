@@ -1,0 +1,8 @@
+node_modules/
+.DS_Store
+*.log
+.idea/
+.vscode/
+test-results/
+playwright-report/
+reports/
