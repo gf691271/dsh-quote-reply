@@ -15,7 +15,7 @@ window.__ModuleLoader__ = { load(m){ window.__p = m.factory((n)=> n==='react'?wi
 <script src="../../client.js"></script>
 <script>
 const Text = slots.get('text');
-const text = '│ 第一行引用\n│ 第二行引用\n我的回复\n\n│ 另一组引用\n另一个回复\n\n最后一句手打的话';
+const text = ['│ 第一组引文','第一组回复','','│ 第二组引文','第二组回复','','│ 第三组引文','第三组回复','','│ 第四组引文','第四组回复','','最后手打的一句'].join('\n');
 ReactDOM.createRoot(document.getElementById('overlay')).render(React.createElement(slots.get('quote-reply-overlay'), null));
 ReactDOM.createRoot(document.getElementById('msg')).render(
   React.createElement('span', { style: { display: 'block', whiteSpace: 'pre-wrap' } },

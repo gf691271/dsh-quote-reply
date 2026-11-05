@@ -377,6 +377,45 @@ await renderText('普通消息\n第二行');
 assert(transcript.querySelector('.dqr-msg-quote') === null, 'ordinary messages render no quote block');
 assert(transcript.textContent === '普通消息\n第二行', 'ordinary message text is untouched');
 
+// long multi-quote messages collapse, like a long paste in Claude
+const longMessage = [
+  '│ 第一组引文',
+  '第一组回复',
+  '',
+  '│ 第二组引文',
+  '第二组回复',
+  '',
+  '│ 第三组引文',
+  '第三组回复',
+  '',
+  '│ 第四组引文',
+  '第四组回复',
+  '',
+  '最后手打的一句',
+].join('\n');
+await renderText(longMessage);
+assert(
+  transcript.querySelectorAll('.dqr-msg-quote').length === 2,
+  `a long message shows the first two groups (got ${transcript.querySelectorAll('.dqr-msg-quote').length})`,
+);
+const more = transcript.querySelector('.dqr-more');
+assert(more !== null, 'a long message offers a show-more control');
+assert(more.textContent === '显示更多（还有 2 组）', `the control counts the hidden groups (got ${JSON.stringify(more.textContent)})`);
+assert(!transcript.textContent.includes('第四组回复'), 'hidden groups stay out of the DOM');
+
+more.dispatchEvent(new window.MouseEvent('click', { bubbles: true }));
+await wait(30);
+assert(
+  transcript.querySelectorAll('.dqr-msg-quote').length === 4,
+  'expanding reveals every group',
+);
+assert(transcript.textContent.includes('第四组回复'), 'the last group is readable after expanding');
+assert(transcript.querySelector('.dqr-more') === null, 'the control disappears once expanded');
+
+// a short message never collapses
+await renderText('│ 只有一组\n只有一组回复');
+assert(transcript.querySelector('.dqr-more') === null, 'a short message shows no control');
+
 // ---- switching sessions keeps each queue and the dock stays mounted ---------
 draftText = '';
 activeSession = 's1';

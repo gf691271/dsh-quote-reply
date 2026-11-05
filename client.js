@@ -45,6 +45,7 @@ window.__ModuleLoader__.load({
         sending: '发送中…',
         sendFailed: '未发送成功，已退回',
         sendFileBlocked: '文件附件无法随引用发送，请先移除',
+        showMore: '显示更多（还有 {count} 组）',
         save: '保存',
         hintAdd: 'Enter 加入 · Shift+Enter 换行 · Esc 取消',
         hintSave: 'Enter 保存 · Shift+Enter 换行 · Esc 取消',
@@ -59,6 +60,7 @@ window.__ModuleLoader__.load({
         sending: 'Sending…',
         sendFailed: 'Not sent — restored',
         sendFileBlocked: 'A file attachment cannot be sent with a quote',
+        showMore: 'Show {count} more',
         save: 'Save',
         hintAdd: 'Enter to add · Shift+Enter for newline · Esc to cancel',
         hintSave: 'Enter to save · Shift+Enter for newline · Esc to cancel',
@@ -98,17 +100,24 @@ window.__ModuleLoader__.load({
      * its fallback chain; the local table is only the fallback when the locale
      * service is missing (tests, a stripped-down profile).
      */
-    function t(key) {
+    function t(key, values) {
+      let text;
       if (translate !== null) {
         try {
           const value = translate(key);
-          if (typeof value === 'string' && value !== '' && value !== key) return value;
+          if (typeof value === 'string' && value !== '' && value !== key) text = value;
         } catch (_error) {
           /* fall through to the local table */
         }
       }
-      const table = I18N[detectLang()] || I18N.zh;
-      return table[key] || I18N.zh[key] || key;
+      if (text === undefined) {
+        const table = I18N[detectLang()] || I18N.zh;
+        text = table[key] || I18N.zh[key] || key;
+      }
+      if (!values) return text;
+      return text.replace(/\{(\w+)\}/g, (match, name) =>
+        values[name] === undefined ? match : String(values[name]),
+      );
     }
 
     // ---------------------------------------------------------------- selection
@@ -907,6 +916,10 @@ window.__ModuleLoader__.load({
 .dqr-msg-quote{display:inline-block;box-sizing:border-box;width:100%;margin:1px 0;padding-left:10px;border-left:2px solid;
   border-color:var(--dsw-alias-border-l2, color-mix(in srgb, currentColor 35%, transparent));
   color:var(--dsw-alias-label-secondary);}
+.dqr-more{display:inline-block;margin:2px 0 0;padding:0;border:0;background:none;
+  color:var(--dqr-accent);font:inherit;font-size:12.5px;line-height:1.5;cursor:pointer;
+  text-decoration:underline;text-underline-offset:2px;}
+.dqr-more:hover{filter:brightness(1.1);}
 .dqr-tool{width:18px;height:18px;display:grid;place-items:center;padding:0;border:0;border-radius:5px;
   background:transparent;color:var(--dsw-alias-label-secondary);cursor:pointer;}
 .dqr-tool:hover{background:var(--dsw-alias-interactive-bg-hover, rgba(127,127,127,.16));
@@ -1293,25 +1306,69 @@ window.__ModuleLoader__.load({
         return h('span', { style: { whiteSpace: 'pre-wrap' } }, text);
       }
       const lines = text.split('\n');
-      const out = [];
+      // One group is a quote run plus the answer (and typing) that follows it.
+      const groups = [];
       let index = 0;
       while (index < lines.length) {
-        const quote = isBar(lines[index]);
+        if (!isBar(lines[index])) {
+          let end = index;
+          while (end < lines.length && !isBar(lines[end])) end += 1;
+          groups.push({ quote: null, body: lines.slice(index, end) });
+          index = end;
+          continue;
+        }
         let end = index;
-        while (end < lines.length && isBar(lines[end]) === quote) end += 1;
-        if (quote) {
-          const content = lines
-            .slice(index, end)
-            .map((line) => (line === '│' ? '' : line.slice(2)))
-            .join('\n');
+        while (end < lines.length && isBar(lines[end])) end += 1;
+        const quote = lines
+          .slice(index, end)
+          .map((line) => (line === '│' ? '' : line.slice(2)))
+          .join('\n');
+        let tail = end;
+        while (tail < lines.length && !isBar(lines[tail])) tail += 1;
+        groups.push({ quote, body: lines.slice(end, tail) });
+        index = tail;
+      }
+      return h(QuoteMessage, { groups, key: 'q-reply' });
+    }
+
+    /** Long multi-quote messages collapse the way Claude shows a long paste. */
+    const QUOTE_VISIBLE_GROUPS = 2;
+
+    function QuoteMessage({ groups }) {
+      const [expanded, setExpanded] = React.useState(false);
+      const collapsible = groups.length > QUOTE_VISIBLE_GROUPS;
+      const visible = collapsible && !expanded ? groups.slice(0, QUOTE_VISIBLE_GROUPS) : groups;
+      const hidden = groups.length - visible.length;
+      const out = [];
+      visible.forEach((group) => {
+        if (group.quote !== null) {
           // A block element swallows the newline that preceded it; the blank
           // line between a reply and the next quote has to be put back.
           if (out.length > 0) out.push('\n');
-          out.push(h('span', { key: `q${out.length}`, className: 'dqr-msg-quote' }, content));
-        } else {
-          out.push(h('span', { key: `t${out.length}` }, lines.slice(index, end).join('\n')));
+          out.push(h('span', { key: `q${out.length}`, className: 'dqr-msg-quote' }, group.quote));
         }
-        index = end;
+        if (group.body.length > 0) {
+          out.push(h('span', { key: `t${out.length}` }, group.body.join('\n')));
+        }
+      });
+      if (hidden > 0) {
+        out.push(
+          h(
+            'button',
+            {
+              key: 'more',
+              type: 'button',
+              className: 'dqr-more',
+              'data-quote-reply-ui': '',
+              onClick: (event) => {
+                event.preventDefault();
+                event.stopPropagation();
+                setExpanded(true);
+              },
+            },
+            t('showMore', { count: hidden }),
+          ),
+        );
       }
       return h('span', { style: { whiteSpace: 'pre-wrap' } }, out);
     }
