@@ -4,6 +4,15 @@ All notable changes to this project are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project uses
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.2] — 2026-11-05
+
+### Fixed
+
+- The queue row above the composer renders this plugin's text slot with
+  whitespace collapsed and a single-line ellipsis. The queued copy now stays a
+  flat preview with the storage markers stripped, instead of growing quote
+  blocks inside a one-line container.
+
 ## [1.0.1] — 2026-11-05
 
 ### Changed
