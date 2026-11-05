@@ -416,6 +416,19 @@ assert(transcript.querySelector('.dqr-more') === null, 'the control disappears o
 await renderText('│ 只有一组\n只有一组回复');
 assert(transcript.querySelector('.dqr-more') === null, 'a short message shows no control');
 
+// the queue row re-renders this slot with whitespace collapsed and ellipsis on,
+// so the queued copy is one flat line: it must not grow quote blocks
+await renderText('│ 第一组引文 第一组回复 │ 第二组引文 第二组回复');
+assert(
+  transcript.querySelector('.dqr-msg-quote') === null,
+  'a single-line queue preview renders no quote block',
+);
+assert(transcript.querySelector('.dqr-more') === null, 'a single-line preview has no show-more control');
+assert(
+  transcript.textContent === '第一组引文 第一组回复 第二组引文 第二组回复',
+  `the queue preview drops the storage markers (got ${JSON.stringify(transcript.textContent)})`,
+);
+
 // ---- switching sessions keeps each queue and the dock stays mounted ---------
 draftText = '';
 activeSession = 's1';

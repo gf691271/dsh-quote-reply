@@ -1302,11 +1302,20 @@ window.__ModuleLoader__.load({
       const data = node.data || {};
       const text = String(data.display != null ? data.display : data.text != null ? data.text : props.raw || '');
       const isBar = (line) => line === '│' || line.startsWith('│ ');
-      if (!text.split('\n').some(isBar)) {
+      const lines = text.split('\n');
+      // The composer's queue row renders this same slot with
+      // `facts.collapseWhitespace` and `ellipsis: true`, so the queued copy
+      // arrives as ONE line. Quote blocks there would fight the single-line
+      // ellipsis, so a flat preview just drops the storage markers and lets the
+      // host truncate it like any other queued message.
+      if (lines.length < 2) {
+        if (!lines.some(isBar)) return h('span', { style: { whiteSpace: 'pre-wrap' } }, text);
+        const preview = text.replace(/(^|\s)│\s/g, '$1').replace(/\s+/g, ' ').trim();
+        return h('span', { style: { whiteSpace: 'pre-wrap' } }, preview);
+      }
+      if (!lines.some(isBar)) {
         return h('span', { style: { whiteSpace: 'pre-wrap' } }, text);
       }
-      const lines = text.split('\n');
-      // One group is a quote run plus the answer (and typing) that follows it.
       const groups = [];
       let index = 0;
       while (index < lines.length) {
