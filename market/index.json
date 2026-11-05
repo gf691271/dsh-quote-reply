@@ -64,12 +64,12 @@
       },
       "versions": [
         {
-          "version": "1.0.1",
-          "publishTimestamp": 1793863660,
+          "version": "1.0.2",
+          "publishTimestamp": 1793866178,
           "source": {
             "type": "git",
             "url": "https://github.com/gf691271/dsh-quote-reply",
-            "commit": "8977bd5fc2a6816459f06f5a059113456b55dae3"
+            "commit": "4e5e685cb97a87e3fac85d307b6dede054fe9c4e"
           },
           "engines": {
             "dsh": ">=0.2.0"
