@@ -37,7 +37,8 @@
     "client.js",
     "cordis.patch.yml",
     "locale/*.json",
-    "icon.svg"
+    "icon.svg",
+    "assets/*.png"
   ],
   "scripts": {
     "check": "node --check client.js",
