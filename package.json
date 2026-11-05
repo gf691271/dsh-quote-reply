@@ -21,7 +21,7 @@
   "homepage": "https://github.com/gf691271/dsh-quote-reply#readme",
   "repository": {
     "type": "git",
-    "url": "https://github.com/gf691271/dsh-quote-reply.git"
+    "url": "git+https://github.com/gf691271/dsh-quote-reply.git"
   },
   "bugs": {
     "url": "https://github.com/gf691271/dsh-quote-reply/issues"
