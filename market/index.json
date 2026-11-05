@@ -1,5 +1,5 @@
 {
-  "_note": "Format 1 market index. Replace the placeholder commit after the first push, then host this file from the repository (raw URL) and add that URL as a market index source in DSH.",
+  "_note": "Format 1 market index for dsh-quote-reply. Host it (raw URL) and add that URL as a market index source in DSH.",
   "format": 1,
   "title": {
     "en": "dsh-quote-reply",
@@ -64,12 +64,12 @@
       },
       "versions": [
         {
-          "version": "1.0.0",
-          "publishTimestamp": 1793577600,
+          "version": "1.0.1",
+          "publishTimestamp": 1793863660,
           "source": {
             "type": "git",
             "url": "https://github.com/gf691271/dsh-quote-reply",
-            "commit": "4d4e25fa7884103f6139f165338bcca56f75b272"
+            "commit": "8977bd5fc2a6816459f06f5a059113456b55dae3"
           },
           "engines": {
             "dsh": ">=0.2.0"
