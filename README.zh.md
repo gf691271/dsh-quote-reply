@@ -21,8 +21,11 @@
 
 ## 安装
 
+[![npm](https://img.shields.io/npm/v/dsh-quote-reply)](https://www.npmjs.com/package/dsh-quote-reply)
+
 需要带 Web/桌面对话界面的 DSH 0.2.x。
 
+- **npm** → `dsh plugin add dsh-quote-reply`
 - **插件管理器** → 添加插件 → 选这个目录；
 - **Git** → `plugin_manager install_bundle target: git+https://github.com/gf691271/dsh-quote-reply#<commit>`
 - **市场索引** → 添加 `https://raw.githubusercontent.com/gf691271/dsh-quote-reply/main/market/index.json`

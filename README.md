@@ -21,8 +21,11 @@ Select text → answer it in a popover → the pair becomes a block above the co
 
 ## Install
 
+[![npm](https://img.shields.io/npm/v/dsh-quote-reply)](https://www.npmjs.com/package/dsh-quote-reply)
+
 Requires DSH 0.2.x with the desktop/web conversation UI.
 
+- **npm** → `dsh plugin add dsh-quote-reply`
 - **Plugin Manager** → *Add plugin* → this directory.
 - **Git** → `plugin_manager install_bundle target: git+https://github.com/gf691271/dsh-quote-reply#<commit>`
 - **Market index** → add `https://raw.githubusercontent.com/gf691271/dsh-quote-reply/main/market/index.json`
