@@ -1,6 +1,6 @@
 {
   "name": "dsh-quote-reply",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "type": "module",
   "description": "Claude Code style quote & reply for DeepSeek Harness: select text, reply in a popover, stack editable blocks above the composer, send them together.",
   "keywords": [

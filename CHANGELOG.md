@@ -4,6 +4,14 @@ All notable changes to this project are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project uses
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.1] — 2026-11-05
+
+### Changed
+
+- A long multi-quote message now shows its first two groups and folds the rest
+  behind a `显示更多（还有 N 组）` control, the way Claude shows a long paste.
+  Messages with one or two groups are unchanged.
+
 ## [1.0.0] — 2026-11-04
 
 ### Added
