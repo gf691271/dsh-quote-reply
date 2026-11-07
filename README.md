@@ -8,6 +8,8 @@ Quote & reply for [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-har
 
 Select text → answer it in a popover → the pair becomes a block above the composer → send them all at once.
 
+![quote and reply in action](assets/demo.gif)
+
 ## Features
 
 - Selection pill, reply popover, `Enter` to add.
