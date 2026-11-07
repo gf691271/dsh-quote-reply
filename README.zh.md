@@ -1,8 +1,12 @@
 # dsh-quote-reply
 
+[![npm](https://img.shields.io/npm/v/dsh-quote-reply)](https://www.npmjs.com/package/dsh-quote-reply)
+[![ci](https://github.com/gf691271/dsh-quote-reply/actions/workflows/ci.yml/badge.svg)](https://github.com/gf691271/dsh-quote-reply/actions/workflows/ci.yml)
+[![license](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
 给 [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) 用的引用回复，交互和 Claude Code 一样。
 
-[English](README.md) · MIT
+[English](README.md) · DSH 0.2.x
 
 ![输入框上方的引用方块](screenshots/hero-zh.png)
 
@@ -43,3 +47,5 @@
 - 行首的 `│` 只是存储标记，消息里会渲染成竖线；
 - 宿主拒绝发送时，方块和文字都保留，不丢内容；
 - 文件附件（PDF、zip）不能随引用发送，会提示并拒绝。
+
+如果它帮你省了几次复制粘贴，点个 ⭐ 能让更多人看到。

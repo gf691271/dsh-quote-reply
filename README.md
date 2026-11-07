@@ -1,8 +1,12 @@
 # dsh-quote-reply
 
+[![npm](https://img.shields.io/npm/v/dsh-quote-reply)](https://www.npmjs.com/package/dsh-quote-reply)
+[![ci](https://github.com/gf691271/dsh-quote-reply/actions/workflows/ci.yml/badge.svg)](https://github.com/gf691271/dsh-quote-reply/actions/workflows/ci.yml)
+[![license](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
 Quote & reply for [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness), the way Claude Code does it.
 
-[中文](README.zh.md) · MIT
+[中文](README.zh.md) · DSH 0.2.x
 
 ![quote blocks above the composer](screenshots/hero-en.png)
 
@@ -43,3 +47,5 @@ Requires DSH 0.2.x with the desktop/web conversation UI.
 - `│` at the start of a line is the storage marker; the transcript renders it as a rule.
 - A send the host refuses keeps your blocks and text; nothing is lost.
 - File attachments (PDF, zip) cannot ride a quote and stop the send with a notice.
+
+If this saved you a few clicks, a ⭐ helps other people find it.
